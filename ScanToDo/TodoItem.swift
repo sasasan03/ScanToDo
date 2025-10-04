@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct TodoItem: Identifiable, Codable {
-    var id = UUID()
+struct TodoItem: Identifiable, Codable, Equatable {
+    let id = UUID()
     var title: String
     var isCompleted: Bool = false
     var createdAt: Date = Date()
+
+    static func == (lhs: TodoItem, rhs: TodoItem) -> Bool {
+        lhs.id == rhs.id
+    }
 }
