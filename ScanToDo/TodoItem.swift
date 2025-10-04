@@ -12,8 +12,4 @@ struct TodoItem: Identifiable, Codable, Equatable {
     var title: String
     var isCompleted: Bool = false
     var createdAt: Date = Date()
-
-    static func == (lhs: TodoItem, rhs: TodoItem) -> Bool {
-        lhs.id == rhs.id
-    }
 }

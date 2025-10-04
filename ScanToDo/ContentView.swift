@@ -18,38 +18,41 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                cameraRowView
                 List {
-                    ForEach(todos) { todo in
-                        HStack {
-                            Button(action: {
-                                toggleTodo(todo)
-                            }) {
-                                Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(todo.isCompleted ? .green : .gray)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            if editingTodo?.id == todo.id {
-                                TextField("Todoを記入してください", text: $listRowText)
-                                    .submitLabel(.done)
-                                    .onSubmit {
+                    Section {
+                        ForEach(todos) { todo in
+                            HStack {
+                                Button(action: {
+                                    toggleTodo(todo)
+                                }) {
+                                    Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
+                                        .foregroundColor(todo.isCompleted ? .green : .gray)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                if editingTodo?.id == todo.id {
+                                    TextField("Todoを記入してください", text: $listRowText)
+                                        .submitLabel(.done)
+                                        .onSubmit {
+                                            saveEdit()
+                                        }
+                                    Button("編集終了") {
                                         saveEdit()
                                     }
-                                Button("完了") {
-                                    saveEdit()
+                                    .buttonStyle(.borderedProminent)
+                                } else {
+                                    Text(todo.title)
+                                        .strikethrough(todo.isCompleted)
+                                        .foregroundColor(todo.isCompleted ? .gray : .primary)
+                                        .onTapGesture {
+                                            startEditing(todo)
+                                        }
                                 }
-                                .buttonStyle(.borderedProminent)
-                            } else {
-                                Text(todo.title)
-                                    .strikethrough(todo.isCompleted)
-                                    .foregroundColor(todo.isCompleted ? .gray : .primary)
-                                    .onTapGesture {
-                                        startEditing(todo)
-                                    }
+                                Spacer()
                             }
-                            Spacer()
                         }
+                        .onDelete(perform: deleteTodos)
                     }
-                    .onDelete(perform: deleteTodos)
                 }
                 .listStyle(PlainListStyle())
                 if !todos.isEmpty {
@@ -72,11 +75,6 @@ struct ContentView: View {
             }
             .navigationTitle("Todo List")
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    NavigationLink(destination: CameraView(todos: $todos)) {
-                        Image(systemName: "camera")
-                    }
-                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
                         showingAddTodo = true
@@ -97,6 +95,8 @@ struct ContentView: View {
                 TodoFormView(todoText: "") { text in
                     addTodo(text: text)
                 }
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
             }
             .onAppear {
                 if !userDefaults.loadTodos().isEmpty {
@@ -104,6 +104,22 @@ struct ContentView: View {
                 }
             }
         }
+    }
+    
+    private var cameraRowView: some View {
+        NavigationLink(destination: CameraView(todos: $todos)) {
+            Label("撮影して項目を追加", systemImage: "camera")
+                .font(.headline)
+                .foregroundColor(.blue)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.blue, lineWidth: 2)
+                )
+        }
+        .padding(.horizontal)
+        .padding(.top, 8)
     }
 
     private func addTodo(text: String) {
