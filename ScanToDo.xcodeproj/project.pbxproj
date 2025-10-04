@@ -6,6 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		691A78252E8D661200EF7698 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 691A781D2E8D661200EF7698 /* Assets.xcassets */; };
+		691A78262E8D661200EF7698 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A781E2E8D661200EF7698 /* CameraView.swift */; };
+		691A78272E8D661200EF7698 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A781F2E8D661200EF7698 /* ContentView.swift */; };
+		691A78282E8D661200EF7698 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A78202E8D661200EF7698 /* ImagePicker.swift */; };
+		691A78292E8D661200EF7698 /* ScanToDoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A78212E8D661200EF7698 /* ScanToDoApp.swift */; };
+		691A782A2E8D661200EF7698 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A78222E8D661200EF7698 /* TextRecognizer.swift */; };
+		691A782B2E8D661200EF7698 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A78232E8D661200EF7698 /* TodoItem.swift */; };
+		691A782D2E8D7B7900EF7698 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A782C2E8D7B7900EF7698 /* UserDefaultsManager.swift */; };
+		691A782F2E9013F100EF7698 /* TodoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A782E2E9013F100EF7698 /* TodoFormView.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		691A77BD2E8D0E7D00EF7698 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,14 +39,18 @@
 		691A77AF2E8D0E7A00EF7698 /* ScanToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		691A77BC2E8D0E7D00EF7698 /* ScanToDoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanToDoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		691A77C62E8D0E7D00EF7698 /* ScanToDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanToDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		691A781D2E8D661200EF7698 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		691A781E2E8D661200EF7698 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		691A781F2E8D661200EF7698 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		691A78202E8D661200EF7698 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		691A78212E8D661200EF7698 /* ScanToDoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanToDoApp.swift; sourceTree = "<group>"; };
+		691A78222E8D661200EF7698 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		691A78232E8D661200EF7698 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		691A782C2E8D7B7900EF7698 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		691A782E2E9013F100EF7698 /* TodoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		691A77B12E8D0E7A00EF7698 /* ScanToDo */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ScanToDo;
-			sourceTree = "<group>";
-		};
 		691A77BF2E8D0E7D00EF7698 /* ScanToDoTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ScanToDoTests;
@@ -75,7 +91,7 @@
 		691A77A62E8D0E7A00EF7698 = {
 			isa = PBXGroup;
 			children = (
-				691A77B12E8D0E7A00EF7698 /* ScanToDo */,
+				691A78242E8D661200EF7698 /* ScanToDo */,
 				691A77BF2E8D0E7D00EF7698 /* ScanToDoTests */,
 				691A77C92E8D0E7D00EF7698 /* ScanToDoUITests */,
 				691A77B02E8D0E7A00EF7698 /* Products */,
@@ -92,6 +108,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		691A78242E8D661200EF7698 /* ScanToDo */ = {
+			isa = PBXGroup;
+			children = (
+				691A781D2E8D661200EF7698 /* Assets.xcassets */,
+				691A78212E8D661200EF7698 /* ScanToDoApp.swift */,
+				691A781E2E8D661200EF7698 /* CameraView.swift */,
+				691A781F2E8D661200EF7698 /* ContentView.swift */,
+				691A782E2E9013F100EF7698 /* TodoFormView.swift */,
+				691A78202E8D661200EF7698 /* ImagePicker.swift */,
+				691A78222E8D661200EF7698 /* TextRecognizer.swift */,
+				691A78232E8D661200EF7698 /* TodoItem.swift */,
+				691A782C2E8D7B7900EF7698 /* UserDefaultsManager.swift */,
+			);
+			path = ScanToDo;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,9 +138,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				691A77B12E8D0E7A00EF7698 /* ScanToDo */,
 			);
 			name = ScanToDo;
 			packageProductDependencies = (
@@ -212,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691A78252E8D661200EF7698 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +266,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691A78262E8D661200EF7698 /* CameraView.swift in Sources */,
+				691A78272E8D661200EF7698 /* ContentView.swift in Sources */,
+				691A782F2E9013F100EF7698 /* TodoFormView.swift in Sources */,
+				691A78282E8D661200EF7698 /* ImagePicker.swift in Sources */,
+				691A782D2E8D7B7900EF7698 /* UserDefaultsManager.swift in Sources */,
+				691A78292E8D661200EF7698 /* ScanToDoApp.swift in Sources */,
+				691A782A2E8D661200EF7698 /* TextRecognizer.swift in Sources */,
+				691A782B2E8D661200EF7698 /* TodoItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +444,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -435,6 +474,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
