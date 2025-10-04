@@ -6,6 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		691A791A2E91857200EF7698 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 691A790F2E91857200EF7698 /* Assets.xcassets */; };
+		691A791B2E91857200EF7698 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 691A79132E91857200EF7698 /* PrivacyInfo.xcprivacy */; };
+		691A791C2E91857200EF7698 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A79102E91857200EF7698 /* CameraView.swift */; };
+		691A791D2E91857200EF7698 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A79112E91857200EF7698 /* ContentView.swift */; };
+		691A791E2E91857200EF7698 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A79122E91857200EF7698 /* ImagePicker.swift */; };
+		691A791F2E91857200EF7698 /* ScanToDoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A79142E91857200EF7698 /* ScanToDoApp.swift */; };
+		691A79202E91857200EF7698 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A79152E91857200EF7698 /* TextRecognizer.swift */; };
+		691A79212E91857200EF7698 /* TodoFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A79162E91857200EF7698 /* TodoFormView.swift */; };
+		691A79222E91857200EF7698 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A79172E91857200EF7698 /* TodoItem.swift */; };
+		691A79232E91857200EF7698 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691A79182E91857200EF7698 /* UserDefaultsManager.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		691A77BD2E8D0E7D00EF7698 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,14 +40,19 @@
 		691A77AF2E8D0E7A00EF7698 /* ScanToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		691A77BC2E8D0E7D00EF7698 /* ScanToDoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanToDoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		691A77C62E8D0E7D00EF7698 /* ScanToDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanToDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		691A790F2E91857200EF7698 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		691A79102E91857200EF7698 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		691A79112E91857200EF7698 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		691A79122E91857200EF7698 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		691A79132E91857200EF7698 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		691A79142E91857200EF7698 /* ScanToDoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanToDoApp.swift; sourceTree = "<group>"; };
+		691A79152E91857200EF7698 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		691A79162E91857200EF7698 /* TodoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormView.swift; sourceTree = "<group>"; };
+		691A79172E91857200EF7698 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
+		691A79182E91857200EF7698 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		691A77B12E8D0E7A00EF7698 /* ScanToDo */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ScanToDo;
-			sourceTree = "<group>";
-		};
 		691A77BF2E8D0E7D00EF7698 /* ScanToDoTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ScanToDoTests;
@@ -75,7 +93,7 @@
 		691A77A62E8D0E7A00EF7698 = {
 			isa = PBXGroup;
 			children = (
-				691A77B12E8D0E7A00EF7698 /* ScanToDo */,
+				691A79192E91857200EF7698 /* ScanToDo */,
 				691A77BF2E8D0E7D00EF7698 /* ScanToDoTests */,
 				691A77C92E8D0E7D00EF7698 /* ScanToDoUITests */,
 				691A77B02E8D0E7A00EF7698 /* Products */,
@@ -92,6 +110,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		691A79192E91857200EF7698 /* ScanToDo */ = {
+			isa = PBXGroup;
+			children = (
+				691A790F2E91857200EF7698 /* Assets.xcassets */,
+				691A79132E91857200EF7698 /* PrivacyInfo.xcprivacy */,
+				691A79102E91857200EF7698 /* CameraView.swift */,
+				691A79112E91857200EF7698 /* ContentView.swift */,
+				691A79122E91857200EF7698 /* ImagePicker.swift */,
+				691A79142E91857200EF7698 /* ScanToDoApp.swift */,
+				691A79152E91857200EF7698 /* TextRecognizer.swift */,
+				691A79162E91857200EF7698 /* TodoFormView.swift */,
+				691A79172E91857200EF7698 /* TodoItem.swift */,
+				691A79182E91857200EF7698 /* UserDefaultsManager.swift */,
+			);
+			path = ScanToDo;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,9 +141,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				691A77B12E8D0E7A00EF7698 /* ScanToDo */,
 			);
 			name = ScanToDo;
 			packageProductDependencies = (
@@ -212,6 +244,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691A791A2E91857200EF7698 /* Assets.xcassets in Resources */,
+				691A791B2E91857200EF7698 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +270,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				691A791C2E91857200EF7698 /* CameraView.swift in Sources */,
+				691A791D2E91857200EF7698 /* ContentView.swift in Sources */,
+				691A791E2E91857200EF7698 /* ImagePicker.swift in Sources */,
+				691A791F2E91857200EF7698 /* ScanToDoApp.swift in Sources */,
+				691A79202E91857200EF7698 /* TextRecognizer.swift in Sources */,
+				691A79212E91857200EF7698 /* TodoFormView.swift in Sources */,
+				691A79222E91857200EF7698 /* TodoItem.swift in Sources */,
+				691A79232E91857200EF7698 /* UserDefaultsManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
