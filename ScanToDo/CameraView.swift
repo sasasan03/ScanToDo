@@ -10,7 +10,6 @@ import SwiftUI
 struct CameraView: View {
     @Binding var todos: [TodoItem]
     @Environment(\.presentationMode) var presentationMode
-
     @State private var showingCamera = false
     @State private var capturedImage: UIImage?
     @State private var recognizedTexts: [String] = []
