@@ -73,7 +73,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("Todo List")
+            .navigationTitle("メモ")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
