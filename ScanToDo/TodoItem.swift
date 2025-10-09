@@ -8,7 +8,7 @@
 import Foundation
 
 struct TodoItem: Identifiable, Codable, Equatable {
-    let id = UUID()
+    var id = UUID()
     var title: String
     var isCompleted: Bool = false
     var createdAt: Date = Date()
