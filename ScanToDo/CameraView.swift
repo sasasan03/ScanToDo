@@ -111,7 +111,7 @@ struct CameraView: View {
         .sheet(isPresented: $showingCamera) {
             ImagePicker(image: $capturedImage, sourceType: .camera)
         }
-        .onChange(of: capturedImage) { newImage in
+        .onChange(of: capturedImage) { _, newImage in
             if let image = newImage {
                 recognizeTextFromImage(image)
             }
