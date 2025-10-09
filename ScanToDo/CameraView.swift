@@ -14,6 +14,7 @@ struct CameraView: View {
     @State private var capturedImage: UIImage?
     @State private var recognizedTexts: [String] = []
     @State private var isProcessing = false
+    @State private var cameraUnavailableAlert = false
 
     private let textRecognizer = TextRecognizer()
 
@@ -34,7 +35,11 @@ struct CameraView: View {
             }
 
             Button(action: {
-                showingCamera = true
+                if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                    showingCamera = true
+                } else {
+                    cameraUnavailableAlert = true
+                }
             }) {
                 HStack {
                     Image(systemName: "camera")
@@ -108,13 +113,19 @@ struct CameraView: View {
             Spacer()
         }
         .navigationTitle("カメラ")
-        .sheet(isPresented: $showingCamera) {
+        .fullScreenCover(isPresented: $showingCamera) {
             ImagePicker(image: $capturedImage, sourceType: .camera)
+                .ignoresSafeArea()
         }
         .onChange(of: capturedImage) { _, newImage in
             if let image = newImage {
                 recognizeTextFromImage(image)
             }
+        }
+        .alert("カメラが利用できません", isPresented: $cameraUnavailableAlert) {
+            Button("OK", role: .cancel) {}
+        } message: {
+            Text("このデバイスではカメラを使用できません。")
         }
     }
 
