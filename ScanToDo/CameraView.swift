@@ -17,6 +17,7 @@ struct CameraView: View {
     @State private var cameraUnavailableAlert = false
 
     private let textRecognizer = TextRecognizer()
+    private let userDefaults = UserDefaultsManager.shared
 
     var body: some View {
         VStack(spacing: 20) {
@@ -146,6 +147,7 @@ struct CameraView: View {
             let newTodo = TodoItem(title: text)
             todos.append(newTodo)
         }
+        userDefaults.saveTodos(todos)
         presentationMode.wrappedValue.dismiss()
     }
 }
