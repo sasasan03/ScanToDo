@@ -115,10 +115,10 @@
 			children = (
 				691A790F2E91857200EF7698 /* Assets.xcassets */,
 				691A79132E91857200EF7698 /* PrivacyInfo.xcprivacy */,
-				691A79102E91857200EF7698 /* CameraView.swift */,
-				691A79112E91857200EF7698 /* ContentView.swift */,
-				691A79122E91857200EF7698 /* ImagePicker.swift */,
 				691A79142E91857200EF7698 /* ScanToDoApp.swift */,
+				691A79112E91857200EF7698 /* ContentView.swift */,
+				691A79102E91857200EF7698 /* CameraView.swift */,
+				691A79122E91857200EF7698 /* ImagePicker.swift */,
 				691A79152E91857200EF7698 /* TextRecognizer.swift */,
 				691A79162E91857200EF7698 /* TodoFormView.swift */,
 				691A79172E91857200EF7698 /* TodoItem.swift */,

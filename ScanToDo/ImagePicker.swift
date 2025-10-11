@@ -15,7 +15,11 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
-        picker.sourceType = sourceType
+        // UIImagePickerController crashes if asked for an unavailable source type (e.g. camera on Simulator),
+        // so we gracefully fall back to the photo library when needed.
+        let resolvedSourceType = UIImagePickerController.isSourceTypeAvailable(sourceType) ? sourceType : .photoLibrary
+        picker.sourceType = resolvedSourceType
+        picker.modalPresentationStyle = .fullScreen
         picker.delegate = context.coordinator
         return picker
     }
