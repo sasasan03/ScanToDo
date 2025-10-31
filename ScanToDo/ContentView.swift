@@ -25,11 +25,13 @@ struct ContentView: View {
                             HStack {
                                 Button(action: {
                                     toggleTodo(todo)
+                                    editingTodo = nil
                                 }) {
                                     Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
                                         .foregroundColor(todo.isCompleted ? .green : .gray)
+                                        .frame(width: 50)
+                                        .frame(maxHeight: .infinity)
                                 }
-                                .buttonStyle(PlainButtonStyle())
                                 if editingTodo?.id == todo.id {
                                     TextField("Todoを記入してください", text: $listRowText)
                                         .submitLabel(.done)
@@ -44,6 +46,10 @@ struct ContentView: View {
                                     Text(todo.title)
                                         .strikethrough(todo.isCompleted)
                                         .foregroundColor(todo.isCompleted ? .gray : .primary)
+                                        .frame(maxWidth: .infinity,
+                                               alignment: .leading
+                                       )
+                                        .frame(maxHeight: .infinity)
                                         .onTapGesture {
                                             startEditing(todo)
                                         }
@@ -164,3 +170,11 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+//@State private var todos: [TodoItem] = [TodoItem(title: "牛乳を買う", isCompleted: false, createdAt: Date()),
+//                                        TodoItem(title: "メールを返信する", isCompleted: true, createdAt: Date().addingTimeInterval(-3600)),
+//                                        TodoItem(title: "ランニングする", isCompleted: false, createdAt: Date().addingTimeInterval(-86400)),
+//                                        TodoItem(title: "Swiftの勉強をする", isCompleted: false, createdAt: Date().addingTimeInterval(-172800)),
+//                                        TodoItem(title: "アプリのUIを改善する", isCompleted: true, createdAt: Date().addingTimeInterval(-259200))
+//                                    ]
+
