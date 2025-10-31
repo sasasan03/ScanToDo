@@ -20,6 +20,7 @@ struct ContentView: View {
     @State private var capturedImage: UIImage?
     @State private var recognizedTexts: [String] = []
     private let textRecognizer = TextRecognizer()
+    @State private var showingEmptyEditAlert = false
 
     var body: some View {
         NavigationStack {
@@ -47,6 +48,10 @@ struct ContentView: View {
                                             .onSubmit {
                                                 saveEdit()
                                             }
+                                        Button("編集終了") {
+                                            saveEdit()
+                                        }
+                                        .buttonStyle(.borderedProminent)
                                     } else {
                                         Text(todo.title)
                                             .strikethrough(true)
@@ -56,10 +61,6 @@ struct ContentView: View {
                                            )
                                             .frame(maxHeight: .infinity)
                                     }
-                                    Button("編集終了") {
-                                        saveEdit()
-                                    }
-                                    .buttonStyle(.borderedProminent)
                                 } else {
                                     Text(todo.title)
                                         .strikethrough(todo.isCompleted)
@@ -115,6 +116,9 @@ struct ContentView: View {
                 }
             } message: {
                 Text("すべてのTodoを削除してもよろしいですか？")
+            }
+            .alert("Todoを記入してください", isPresented: $showingEmptyEditAlert) {
+                Button("OK", role: .cancel) {}
             }
             .sheet(isPresented: $showingAddTodo) {
                 TodoFormView(todoText: "") { text in
@@ -186,7 +190,12 @@ extension ContentView {
     private func saveEdit() {
         guard let todo = editingTodo,
               let index = todos.firstIndex(where: { $0.id == todo.id }) else { return }
-        todos[index].title = listRowText
+        let trimmedTitle = listRowText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedTitle.isEmpty else {
+            showingEmptyEditAlert = true
+            return
+        }
+        todos[index].title = trimmedTitle
         userDefaults.saveTodos(todos)
         editingTodo = nil
         listRowText = ""
@@ -224,4 +233,3 @@ extension ContentView {
 //                                        TodoItem(title: "Swiftの勉強をする", isCompleted: false, createdAt: Date().addingTimeInterval(-172800)),
 //                                        TodoItem(title: "アプリのUIを改善する", isCompleted: true, createdAt: Date().addingTimeInterval(-259200))
 //                                    ]
-
