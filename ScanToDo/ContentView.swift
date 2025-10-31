@@ -21,6 +21,7 @@ struct ContentView: View {
     @State private var recognizedTexts: [String] = []
     private let textRecognizer = TextRecognizer()
     @State private var showingEmptyEditAlert = false
+    @FocusState private var focusedTodoID: UUID?
 
     var body: some View {
         NavigationStack {
@@ -48,6 +49,7 @@ struct ContentView: View {
                                             .onSubmit {
                                                 saveEdit()
                                             }
+                                            .focused($focusedTodoID, equals: todo.id)
                                         Button("編集終了") {
                                             saveEdit()
                                         }
@@ -175,6 +177,7 @@ extension ContentView {
             todos[index].isCompleted.toggle()
             userDefaults.saveTodos(todos)
         }
+        focusedTodoID = nil
     }
 
     private func deleteTodos(at offsets: IndexSet) {
@@ -183,8 +186,10 @@ extension ContentView {
     }
 
     private func startEditing(_ todo: TodoItem) {
+        guard !todo.isCompleted else { return }
         editingTodo = todo
         listRowText = todo.title
+        focusedTodoID = todo.id
     }
 
     private func saveEdit() {
@@ -199,6 +204,7 @@ extension ContentView {
         userDefaults.saveTodos(todos)
         editingTodo = nil
         listRowText = ""
+        focusedTodoID = nil
     }
 
     private func deleteAllTodos() {
