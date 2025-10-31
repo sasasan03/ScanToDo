@@ -50,6 +50,7 @@
 		691A79162E91857200EF7698 /* TodoFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormView.swift; sourceTree = "<group>"; };
 		691A79172E91857200EF7698 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		691A79182E91857200EF7698 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		6970B5B72EB47BBE0003DB83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -113,6 +114,7 @@
 		691A79192E91857200EF7698 /* ScanToDo */ = {
 			isa = PBXGroup;
 			children = (
+				6970B5B72EB47BBE0003DB83 /* Info.plist */,
 				691A790F2E91857200EF7698 /* Assets.xcassets */,
 				691A79132E91857200EF7698 /* PrivacyInfo.xcprivacy */,
 				691A79142E91857200EF7698 /* ScanToDoApp.swift */,
@@ -442,6 +444,7 @@
 				DEVELOPMENT_TEAM = 6NMWZ48XL4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScanToDo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "ぱしゃメモ";
 				INFOPLIST_KEY_NSCameraUsageDescription = " Todoの写真を撮影するためにカメラを使用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -477,6 +480,7 @@
 				DEVELOPMENT_TEAM = 6NMWZ48XL4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScanToDo/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "ぱしゃメモ";
 				INFOPLIST_KEY_NSCameraUsageDescription = " Todoの写真を撮影するためにカメラを使用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

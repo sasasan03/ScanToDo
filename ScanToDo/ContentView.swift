@@ -3,7 +3,6 @@
 //  ScanToDo
 //
 //  Created by sako0602 on 2025/10/01.
-//
 
 import SwiftUI
 
@@ -14,6 +13,15 @@ struct ContentView: View {
     @State private var editingTodo: TodoItem?
     private let userDefaults = UserDefaultsManager.shared
     @State var listRowText = ""
+    
+    //カメラ関連
+    @State private var showingCamera = false
+    @State private var isProcessing = false//現在は不使用。画像からテキストを認識するまでに時間がかかりそうであれば使用
+    @State private var capturedImage: UIImage?
+    @State private var recognizedTexts: [String] = []
+    private let textRecognizer = TextRecognizer()
+    @State private var showingEmptyEditAlert = false
+    @FocusState private var focusedTodoID: UUID?
 
     var body: some View {
         NavigationStack {
@@ -23,27 +31,46 @@ struct ContentView: View {
                     Section {
                         ForEach(todos) { todo in
                             HStack {
+                                // MARK: チェックマーク
                                 Button(action: {
                                     toggleTodo(todo)
+                                    editingTodo = nil
                                 }) {
                                     Image(systemName: todo.isCompleted ? "checkmark.circle.fill" : "circle")
                                         .foregroundColor(todo.isCompleted ? .green : .gray)
+                                        .frame(width: 50)
+                                        .frame(maxHeight: .infinity)
                                 }
-                                .buttonStyle(PlainButtonStyle())
+                                // MARK: テキスト部分
                                 if editingTodo?.id == todo.id {
-                                    TextField("Todoを記入してください", text: $listRowText)
-                                        .submitLabel(.done)
-                                        .onSubmit {
+                                    if !todo.isCompleted {
+                                        TextField("Todoを記入してください", text: $listRowText)
+                                            .submitLabel(.done)
+                                            .onSubmit {
+                                                saveEdit()
+                                            }
+                                            .focused($focusedTodoID, equals: todo.id)
+                                        Button("編集終了") {
                                             saveEdit()
                                         }
-                                    Button("編集終了") {
-                                        saveEdit()
+                                        .buttonStyle(.borderedProminent)
+                                    } else {
+                                        Text(todo.title)
+                                            .strikethrough(true)
+                                            .foregroundColor(.gray)
+                                            .frame(maxWidth: .infinity,
+                                                   alignment: .leading
+                                           )
+                                            .frame(maxHeight: .infinity)
                                     }
-                                    .buttonStyle(.borderedProminent)
                                 } else {
                                     Text(todo.title)
                                         .strikethrough(todo.isCompleted)
                                         .foregroundColor(todo.isCompleted ? .gray : .primary)
+                                        .frame(maxWidth: .infinity,
+                                               alignment: .leading
+                                       )
+                                        .frame(maxHeight: .infinity)
                                         .onTapGesture {
                                             startEditing(todo)
                                         }
@@ -55,6 +82,7 @@ struct ContentView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
+                //MARK: 削除ボタン
                 if !todos.isEmpty {
                     Button(action: {
                         showingDeleteAlert = true
@@ -91,12 +119,22 @@ struct ContentView: View {
             } message: {
                 Text("すべてのTodoを削除してもよろしいですか？")
             }
+            .alert("Todoを記入してください", isPresented: $showingEmptyEditAlert) {
+                Button("OK", role: .cancel) {}
+            }
             .sheet(isPresented: $showingAddTodo) {
                 TodoFormView(todoText: "") { text in
                     addTodo(text: text)
                 }
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
+            }
+            .fullScreenCover(isPresented: $showingCamera) {
+                ImagePicker(image: $capturedImage, sourceType: .camera)
+                    .ignoresSafeArea()
+                    .onDisappear {
+                        recognizeTextFromImage()
+                    }
             }
             .onAppear {
                 if !userDefaults.loadTodos().isEmpty {
@@ -107,7 +145,9 @@ struct ContentView: View {
     }
     
     private var cameraRowView: some View {
-        NavigationLink(destination: CameraView(todos: $todos)) {
+        Button(action: {
+            showingCamera = true
+        }, label: {
             Label("撮影して項目を追加", systemImage: "camera")
                 .font(.headline)
                 .foregroundColor(.blue)
@@ -117,11 +157,14 @@ struct ContentView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.blue, lineWidth: 2)
                 )
-        }
+        })
         .padding(.horizontal)
         .padding(.top, 8)
     }
+}
 
+extension ContentView {
+    
     private func addTodo(text: String) {
         let newTodo = TodoItem(title: text)
         todos.append(newTodo)
@@ -134,6 +177,7 @@ struct ContentView: View {
             todos[index].isCompleted.toggle()
             userDefaults.saveTodos(todos)
         }
+        focusedTodoID = nil
     }
 
     private func deleteTodos(at offsets: IndexSet) {
@@ -142,25 +186,56 @@ struct ContentView: View {
     }
 
     private func startEditing(_ todo: TodoItem) {
+        guard !todo.isCompleted else { return }
         editingTodo = todo
         listRowText = todo.title
+        focusedTodoID = todo.id
     }
 
     private func saveEdit() {
         guard let todo = editingTodo,
               let index = todos.firstIndex(where: { $0.id == todo.id }) else { return }
-        todos[index].title = listRowText
+        let trimmedTitle = listRowText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedTitle.isEmpty else {
+            showingEmptyEditAlert = true
+            return
+        }
+        todos[index].title = trimmedTitle
         userDefaults.saveTodos(todos)
         editingTodo = nil
         listRowText = ""
+        focusedTodoID = nil
     }
 
     private func deleteAllTodos() {
         todos.removeAll()
         userDefaults.deleteTodos()
     }
+    
+    private func recognizeTextFromImage() {
+        isProcessing = true
+        recognizedTexts = []
+        guard let image = capturedImage else { return print("💫画像の取得に失敗") }
+        textRecognizer.recognizeText(from: image) { texts in
+            DispatchQueue.main.async {
+                for text in texts {
+                    let newTodo = TodoItem(title: text)
+                    todos.append(newTodo)
+                }
+            }
+            userDefaults.saveTodos(todos)
+        }
+    }
+    
 }
 
 #Preview {
     ContentView()
 }
+
+//@State private var todos: [TodoItem] = [TodoItem(title: "牛乳を買う", isCompleted: false, createdAt: Date()),
+//                                        TodoItem(title: "メールを返信する", isCompleted: true, createdAt: Date().addingTimeInterval(-3600)),
+//                                        TodoItem(title: "ランニングする", isCompleted: false, createdAt: Date().addingTimeInterval(-86400)),
+//                                        TodoItem(title: "Swiftの勉強をする", isCompleted: false, createdAt: Date().addingTimeInterval(-172800)),
+//                                        TodoItem(title: "アプリのUIを改善する", isCompleted: true, createdAt: Date().addingTimeInterval(-259200))
+//                                    ]
