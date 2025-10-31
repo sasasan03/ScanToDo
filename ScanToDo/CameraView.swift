@@ -21,6 +21,7 @@ struct CameraView: View {
 
     var body: some View {
         VStack(spacing: 20) {
+            //MARK: 撮った写真
             if let image = capturedImage {
                 Image(uiImage: image)
                     .resizable()
@@ -35,6 +36,7 @@ struct CameraView: View {
                     .padding()
             }
 
+            //MARK: カメラ起動ボタン
             Button(action: {
                 if UIImagePickerController.isSourceTypeAvailable(.camera) {
                     showingCamera = true
@@ -55,6 +57,7 @@ struct CameraView: View {
                 .padding(.horizontal)
             }
 
+            //MARK: カメラで認識したTODOの文字配列
             if capturedImage != nil {
                 if isProcessing {
                     ProgressView("テキストを認識中...")
@@ -75,6 +78,7 @@ struct CameraView: View {
                         }
                         .frame(maxHeight: 200)
 
+                        //MARK: リストに追加するかどうかのボタン
                         Button(action: {
                             addRecognizedTextsToTodos()
                         }) {
@@ -93,6 +97,7 @@ struct CameraView: View {
                     }
                 }
 
+                //MARK: 認識したTODOを追加せずに削除する
                 Button(action: {
                     capturedImage = nil
                     recognizedTexts = []
@@ -114,7 +119,8 @@ struct CameraView: View {
             Spacer()
         }
         .navigationTitle("カメラ")
-        .fullScreenCover(isPresented: $showingCamera) {
+        .fullScreenCover(isPresented: $showingCamera) {//カメラ
+            //MARK: カメラ画面（写真撮る画面）
             ImagePicker(image: $capturedImage, sourceType: .camera)
                 .ignoresSafeArea()
         }
