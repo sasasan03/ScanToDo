@@ -3,7 +3,6 @@
 //  ScanToDo
 //
 //  Created by sako0602 on 2025/10/01.
-//
 
 import SwiftUI
 
@@ -14,6 +13,13 @@ struct ContentView: View {
     @State private var editingTodo: TodoItem?
     private let userDefaults = UserDefaultsManager.shared
     @State var listRowText = ""
+    
+    //カメラ関連
+    @State private var showingCamera = false
+    @State private var isProcessing = false//現在は不使用。画像からテキストを認識するまでに時間がかかりそうであれば使用
+    @State private var capturedImage: UIImage?
+    @State private var recognizedTexts: [String] = []
+    private let textRecognizer = TextRecognizer()
 
     var body: some View {
         NavigationStack {
@@ -23,6 +29,7 @@ struct ContentView: View {
                     Section {
                         ForEach(todos) { todo in
                             HStack {
+                                // MARK: チェックマーク
                                 Button(action: {
                                     toggleTodo(todo)
                                     editingTodo = nil
@@ -32,12 +39,23 @@ struct ContentView: View {
                                         .frame(width: 50)
                                         .frame(maxHeight: .infinity)
                                 }
+                                // MARK: テキスト部分
                                 if editingTodo?.id == todo.id {
-                                    TextField("Todoを記入してください", text: $listRowText)
-                                        .submitLabel(.done)
-                                        .onSubmit {
-                                            saveEdit()
-                                        }
+                                    if !todo.isCompleted {
+                                        TextField("Todoを記入してください", text: $listRowText)
+                                            .submitLabel(.done)
+                                            .onSubmit {
+                                                saveEdit()
+                                            }
+                                    } else {
+                                        Text(todo.title)
+                                            .strikethrough(true)
+                                            .foregroundColor(.gray)
+                                            .frame(maxWidth: .infinity,
+                                                   alignment: .leading
+                                           )
+                                            .frame(maxHeight: .infinity)
+                                    }
                                     Button("編集終了") {
                                         saveEdit()
                                     }
@@ -61,6 +79,7 @@ struct ContentView: View {
                     }
                 }
                 .listStyle(PlainListStyle())
+                //MARK: 削除ボタン
                 if !todos.isEmpty {
                     Button(action: {
                         showingDeleteAlert = true
@@ -104,6 +123,13 @@ struct ContentView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
             }
+            .fullScreenCover(isPresented: $showingCamera) {
+                ImagePicker(image: $capturedImage, sourceType: .camera)
+                    .ignoresSafeArea()
+                    .onDisappear {
+                        recognizeTextFromImage()
+                    }
+            }
             .onAppear {
                 if !userDefaults.loadTodos().isEmpty {
                     todos = userDefaults.loadTodos()
@@ -113,7 +139,9 @@ struct ContentView: View {
     }
     
     private var cameraRowView: some View {
-        NavigationLink(destination: CameraView(todos: $todos)) {
+        Button(action: {
+            showingCamera = true
+        }, label: {
             Label("撮影して項目を追加", systemImage: "camera")
                 .font(.headline)
                 .foregroundColor(.blue)
@@ -123,11 +151,14 @@ struct ContentView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.blue, lineWidth: 2)
                 )
-        }
+        })
         .padding(.horizontal)
         .padding(.top, 8)
     }
+}
 
+extension ContentView {
+    
     private func addTodo(text: String) {
         let newTodo = TodoItem(title: text)
         todos.append(newTodo)
@@ -165,6 +196,22 @@ struct ContentView: View {
         todos.removeAll()
         userDefaults.deleteTodos()
     }
+    
+    private func recognizeTextFromImage() {
+        isProcessing = true
+        recognizedTexts = []
+        guard let image = capturedImage else { return print("💫画像の取得に失敗") }
+        textRecognizer.recognizeText(from: image) { texts in
+            DispatchQueue.main.async {
+                for text in texts {
+                    let newTodo = TodoItem(title: text)
+                    todos.append(newTodo)
+                }
+            }
+            userDefaults.saveTodos(todos)
+        }
+    }
+    
 }
 
 #Preview {
